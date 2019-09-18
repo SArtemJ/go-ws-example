@@ -15,9 +15,9 @@ import (
 var cfgFile string
 
 var rootCmd = &cobra.Command{
-	Use:   "wssrv",
-	Short: "wssrv",
-	Long:  `wssrv`,
+	Use:   "wstest",
+	Short: "wstest",
+	Long:  `wstest`,
 	Run: func(cmd *cobra.Command, args []string) {
 		checkRequiredParams()
 		wsAppStart()
@@ -50,7 +50,7 @@ func initConfig() {
 		viper.SetConfigFile(cfgFile)
 	} else {
 		viper.AddConfigPath("../.")
-		viper.SetConfigName("go_ws_example")
+		viper.SetConfigName("wstest")
 	}
 
 	err := viper.ReadInConfig()

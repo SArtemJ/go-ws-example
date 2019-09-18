@@ -1,6 +1,6 @@
 package main
 
-import "github.com/SArtemJ/go-ws-example/cmd"
+import "github.com/SArtemJ/wstest/cmd"
 
 func main() {
 	cmd.Execute()

@@ -40,7 +40,7 @@ func StartClient() {
 				fmt.Println("Error read message: ", err.Error())
 				break
 			}
-			fmt.Println("Message: ", m.Data)
+			fmt.Println("You got message: ", m.Data)
 		}
 	}()
 

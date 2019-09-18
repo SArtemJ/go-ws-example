@@ -10,18 +10,6 @@
   version = "v1.2.0"
 
 [[projects]]
-  branch = "master"
-  digest = "1:e47bd94fb079de23a0a368c6f1b8579310577b8317c79d9de07a28a0672b18d1"
-  name = "github.com/SArtemJ/go-ws-example"
-  packages = [
-    "cmd",
-    "messages",
-    "server",
-  ]
-  pruneopts = "UT"
-  revision = "b518ef4ed910891f4baff196dfc6ff2a9d5a58f8"
-
-[[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
@@ -183,7 +171,6 @@
   analyzer-version = 1
   input-imports = [
     "github.com/Pallinder/go-randomdata",
-    "github.com/SArtemJ/go-ws-example/cmd",
     "github.com/pkg/errors",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
