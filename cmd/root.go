@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/SArtemJ/go-ws-example/messages"
-	"github.com/SArtemJ/go-ws-example/server"
+	"github.com/SArtemJ/wstest/messages"
+	"github.com/SArtemJ/wstest/server"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"golang.org/x/net/websocket"
@@ -66,6 +66,7 @@ func wsAppStart() {
 	}
 
 	wspool := server.NewWsPool()
+	messages.NewPool()
 
 	mux := http.NewServeMux()
 	mux.Handle("/", websocket.Handler(func(ws *websocket.Conn) {
@@ -80,15 +81,15 @@ func mainHandler(ws *websocket.Conn, wsp *server.WsPool) {
 	go wsp.Start()
 
 	wsp.NewClients <- ws
-
 	for {
 		var m messages.Message
 		err := websocket.JSON.Receive(ws, &m)
 		if err != nil {
-			wsp.StreamMessages <- messages.Message{ws.RemoteAddr().String(), err.Error()}
+			wsp.StreamMessages <- messages.Message{err.Error()}
 			wsp.DisconnectClient(ws)
 			return
 		}
+		messages.SendersPool.Store(ws.RemoteAddr().String(), true)
 		wsp.StreamMessages <- m
 	}
 }

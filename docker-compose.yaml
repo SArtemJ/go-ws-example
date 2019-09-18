@@ -1,0 +1,46 @@
+version: "3"
+networks:
+  wstest:
+
+services:
+  wstest:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: wstest
+    networks:
+      - wstest
+    environment:
+      - WSSRV_WS_HOST=localhost
+      - WSSRV_WS_PORT=8099
+    ports:
+      - 8099:8099
+
+#  clientone:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    container_name: wsclientone
+#    networks:
+#      - wstest
+#    depends_on:
+#      - wstest
+#    environment:
+#      - WSSRV_WS_HOST=wstest
+#      - WSSRV_WS_PORT=8099
+#    command: callclient
+#
+#  clienttwo:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    container_name: wsclientwo
+#    networks:
+#      - wstest
+#    depends_on:
+#      - wstest
+#      - clientone
+#    environment:
+#      - WSSRV_WS_HOST=wstest
+#      - WSSRV_WS_PORT=8099
+#    command: callclient

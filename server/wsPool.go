@@ -2,7 +2,7 @@ package server
 
 import (
 	"fmt"
-	"github.com/SArtemJ/go-ws-example/messages"
+	"github.com/SArtemJ/wstest/messages"
 	"golang.org/x/net/websocket"
 )
 
@@ -49,11 +49,19 @@ func (wsp *WsPool) DisconnectClient(client *websocket.Conn) {
 }
 
 func (wsp *WsPool) StreamMsg(msg messages.Message) {
+	var removeFromSenders []string
 	for _, client := range wsp.Clients {
-		err := websocket.JSON.Send(client, msg)
-		if err != nil {
-			fmt.Println("Error broadcasting message: ", err)
-			return
+		if isSender := messages.SendersPool.Load(client.RemoteAddr().String()); !isSender {
+			err := websocket.JSON.Send(client, msg)
+			if err != nil {
+				fmt.Println("Error broadcasting message: ", err)
+				return
+			}
+		} else {
+			removeFromSenders = append(removeFromSenders, client.RemoteAddr().String())
 		}
+	}
+	for _, item := range removeFromSenders {
+		messages.SendersPool.Store(item, false)
 	}
 }

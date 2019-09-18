@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/Pallinder/go-randomdata"
-	"github.com/SArtemJ/go-ws-example/messages"
-	"github.com/SArtemJ/go-ws-example/server"
+	"github.com/SArtemJ/wstest/messages"
+	"github.com/SArtemJ/wstest/server"
 	"github.com/spf13/cobra"
 	"golang.org/x/net/websocket"
 	"log"
@@ -51,8 +51,7 @@ func StartClient() {
 			continue
 		}
 		m := messages.Message{
-			ClientIP: ws.RemoteAddr().String(),
-			Data:     msgText,
+			Data: msgText,
 		}
 		err = websocket.JSON.Send(ws, m)
 		if err != nil {
